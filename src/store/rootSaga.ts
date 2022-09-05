@@ -1,7 +1,8 @@
 import {all, fork} from 'redux-saga/effects';
 
-import tokenSaga from './token/saga';
+import companySaga from './company/saga';
+import ratingSaga from './rating/saga';
 
 export default function* rootSaga() {
-  yield all([fork(tokenSaga)]);
+  yield all([fork(companySaga), fork(ratingSaga)]);
 }

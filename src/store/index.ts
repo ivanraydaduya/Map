@@ -5,27 +5,40 @@ import {
   CombinedState,
   AnyAction,
 } from 'redux';
+import {persistStore, persistReducer} from 'redux-persist';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import createSagaMiddleware from 'redux-saga';
-import {TokenState} from './token/reducer';
+import {CompanyState} from './company/reducer';
+import {RatingState} from './rating/reducer';
 
 import rootReducer from './rootReducer';
 import rootSaga from './rootSaga';
 
 type RootReducer = Reducer<
   CombinedState<{
-    token: TokenState;
+    company: CompanyState;
+    rating: RatingState;
   }>,
   AnyAction
 >;
 
 export type RootState = ReturnType<RootReducer>;
 
-// create the saga middleware
 const sagaMiddleware = createSagaMiddleware();
-// mount it on the Store
+
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+  blacklist: [],
+};
 
 export default function configureStore() {
-  const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+  const persistedReducer = persistReducer<RootState, any>(
+    persistConfig,
+    rootReducer,
+  );
+  const store = createStore(persistedReducer, applyMiddleware(sagaMiddleware));
+  const persistor = persistStore(store);
   sagaMiddleware.run(rootSaga);
-  return store;
+  return {store, persistor};
 }

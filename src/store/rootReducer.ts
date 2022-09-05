@@ -1,7 +1,9 @@
 import {combineReducers} from 'redux';
 
-import tokenReducer from './token/reducer';
+import companyReducer from './company/reducer';
+import ratingReducer from './rating/reducer';
 
 export default combineReducers({
-  token: tokenReducer,
+  company: companyReducer,
+  rating: ratingReducer,
 });

@@ -1,1 +1,1 @@
-export {default as Coingecko} from './coingecko.service';
+export {default as Firebase} from './firebase.service';
