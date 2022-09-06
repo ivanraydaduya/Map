@@ -13,4 +13,4 @@ $ yarn ios - on a new terminal
 
 Using exhibition map
 
-Available stands `A21` `B22` and `B12`
+Available stands `A22` `B21` and `B12`
