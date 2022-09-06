@@ -26,10 +26,11 @@ export type RootState = ReturnType<RootReducer>;
 
 const sagaMiddleware = createSagaMiddleware();
 
+// for offline mode
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  blacklist: [],
+  blacklist: ['rating'],
 };
 
 export default function configureStore() {
